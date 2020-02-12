@@ -35,6 +35,9 @@ script:
   - pip3 list --format=columns # List installed packages
   - cat test01.py
   - python3 test01.py
+  # clang
+  - clang --version
+  - clang --help
   # ccache
   - ls -l /usr
   - sudo find /usr /opt -type f -name ccache -ls
