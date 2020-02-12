@@ -1,5 +1,8 @@
 # ----------------
 language: python #works on Linux, but not osx, win
+python:
+  - 2.7
+  - 3.8
 #matrix:
 #  include:
 #    - name: "Python 3.8 dev"
@@ -7,6 +10,8 @@ language: python #works on Linux, but not osx, win
 #      xenial: trusty
 #      env: PYTHON=python3 PIP=pip3  # Unnecessary on Lunixinstall:
 #  - pip install -r requirements.txt
+install:
+  - pip install -r requirements.txt
 script:
   - python --version
   - python3 --version
