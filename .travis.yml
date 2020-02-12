@@ -1,7 +1,8 @@
 # ----------------
-language: python #works on Linux, but not osx, win
-python:
-  - 3.6
+#language: python #works on Linux, but not osx, win
+language: ruby
+#python:
+#  - 3.6
 os: osx
 #matrix:
 #  include:
@@ -11,7 +12,8 @@ os: osx
 #      env: PYTHON=python3 PIP=pip3  # Unnecessary on Lunixinstall:
 #  - pip install -r requirements.txt
 install:
-  - pip install -r requirements.txt
+  #- pip install -r requirements.txt
+  - ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 script:
   - python --version
   - python3 --version
@@ -19,3 +21,7 @@ script:
   - uname -a
   - cat test01.py
   - python test01.py
+
+
+# osx python
+#https://www.python.org/ftp/python/3.8.1/python-3.8.1-macosx10.9.pkg
