@@ -1,7 +1,6 @@
 # ----------------
 language: python #works on Linux, but not osx, win
 python:
-  - 2.7
   - 3.8
 #matrix:
 #  include:
@@ -15,5 +14,5 @@ install:
 script:
   - python --version
   - python3 --version
-  - find /usr -name ccache
+  - find /usr -name ccache -ls
   - uname -a
