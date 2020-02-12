@@ -50,4 +50,10 @@ script:
   - sudo find /usr /opt -type f -name ccache -ls # /usr/local/Cellar/ccache/3.7.6/bin/ccache
   - export PATH=/usr/local/Cellar/ccache/3.7.6/bin/ccache:$PATH
   - ccache --version
+  # flex
+  - echo "--------------------------------------------------------flex----------------------------------------------------"
+  - flex --version
+  # bison
+  - echo "--------------------------------------------------------bison----------------------------------------------------"
+  - bison --version
 
