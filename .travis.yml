@@ -1,7 +1,7 @@
 # ----------------
 language: python #works on Linux, but not osx, win
 python:
-  - 3.8
+  - 3.6
 os: osx
 #matrix:
 #  include:
