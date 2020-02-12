@@ -8,5 +8,7 @@ language: python #works on Linux, but not osx, win
 #      env: PYTHON=python3 PIP=pip3  # Unnecessary on Lunixinstall:
 #  - pip install -r requirements.txt
 script:
-  - pytest
   - python --version
+  - python3 --version
+  - find /usr -name ccache
+  - uname -a
