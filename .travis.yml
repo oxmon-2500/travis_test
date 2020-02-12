@@ -24,6 +24,7 @@ script:
   - ls -l /usr
   - sudo find /usr /opt -type f -name ccache -ls
   - sudo find /usr /opt -type f -name find -ls
+  - brew install ccache
   - uname -a
   - cat test01.py
   - python3 test01.py
