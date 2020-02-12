@@ -18,17 +18,28 @@ install:
   #- export PATH=/usr/local/bin:/usr/local/sbin:$PATH
   #- brew install python
 script:
+  # system info
+  - uname -a
+  # Qt
+  - brew tap cartr/qt4
+  - brew tap-pin cartr/qt4
+  - brew install cartr/qt4/qt
+  - brew install cartr/qt4/pyqt  
+  - sudo find /usr /opt -type f -name qmake -ls
   - qmake --version # Qt version
+  # python
   - python --version
   - python3 --version
   - pip3 list --format=columns # List installed packages
+  - cat test01.py
+  - python3 test01.py
+  # ccache
   - ls -l /usr
   - sudo find /usr /opt -type f -name ccache -ls
   - brew install ccache
-  - sudo find /usr /opt -type f -name ccache -ls
-  - uname -a
-  - cat test01.py
-  - python3 test01.py
+  - sudo find /usr /opt -type f -name ccache -ls # /usr/local/Cellar/ccache/3.7.6/bin/ccache
+  - export PATH=/usr/local/Cellar/ccache/3.7.6/bin/ccache:$PATH
+  - ccache --version
 
 
 # osx python
