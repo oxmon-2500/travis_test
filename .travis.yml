@@ -1,6 +1,6 @@
 # ----------------
-#language: python #works on Linux, but not osx, win
-language: ruby
+language: python #works on Linux, but not osx, win
+#language: ruby
 #python:
 #  - 3.6
 os: osx
@@ -21,7 +21,7 @@ script:
   - python --version
   - python3 --version
   - ls -l /usr
-  - find /usr/bin -type f -name ccache -ls
+  - sudo find /usr -type f -name ccache -ls
   - uname -a
   - cat test01.py
   - python3 test01.py
