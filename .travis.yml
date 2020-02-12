@@ -20,7 +20,8 @@ install:
 script:
   - python --version
   - python3 --version
-  - find /usr -type f -name ccache -ls
+  - ls -l /usr
+  - find /usr/bin -type f -name ccache -ls
   - uname -a
   - cat test01.py
   - python3 test01.py
