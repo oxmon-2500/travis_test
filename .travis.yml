@@ -18,6 +18,7 @@ install:
   #- export PATH=/usr/local/bin:/usr/local/sbin:$PATH
   #- brew install python
 script:
+  - qmake --version # Qt version
   - python --version
   - python3 --version
   - pip3 list --format=columns # List installed packages
