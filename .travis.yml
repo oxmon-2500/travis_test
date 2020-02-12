@@ -21,7 +21,8 @@ script:
   - python --version
   - python3 --version
   - ls -l /usr
-  - sudo find /usr -type f -name ccache -ls
+  - sudo find /usr /opt -type f -name ccache -ls
+  - sudo find /usr /opt -type f -name find -ls
   - uname -a
   - cat test01.py
   - python3 test01.py
