@@ -1,12 +1,12 @@
 # ----------------
-language: python 
-matrix:
-  include:
-    - name: "Python 3.8 dev"
-      python: 3.8-dev
-      xenial: trusty
-      env: PYTHON=python3 PIP=pip3  # Unnecessary on Lunixinstall:
-  - pip install -r requirements.txt
-script:
-  - pytest
-  - python --version
+language: python #works on Linux, but not osx, win
+#matrix:
+#  include:
+#    - name: "Python 3.8 dev"
+#      python: 3.8-dev
+#      xenial: trusty
+#      env: PYTHON=python3 PIP=pip3  # Unnecessary on Lunixinstall:
+#  - pip install -r requirements.txt
+#script:
+#  - pytest
+#  - python --version
