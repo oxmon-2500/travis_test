@@ -1,5 +1,5 @@
 # ----------------
-language: python #works on Linux, but not osx, win
+#language: python #works on Linux, but not osx, win
 #language: ruby
 #python:
 #  - 3.6
