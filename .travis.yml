@@ -20,6 +20,7 @@ install:
 script:
   - python --version
   - python3 --version
+  - pip3 list --format=columns # List installed packages
   - ls -l /usr
   - sudo find /usr /opt -type f -name ccache -ls
   - sudo find /usr /opt -type f -name find -ls
