@@ -10,4 +10,3 @@ matrix:
 script:
   - pytest
   - python --version
-  
