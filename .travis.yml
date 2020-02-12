@@ -22,11 +22,13 @@ script:
   - uname -a
   # Qt
   - brew tap cartr/qt4
-  - brew tap-pin cartr/qt4
+  #- brew tap-pin cartr/qt4 # Error: Calling brew tap-pin user/tap is disabled! Use fully-scoped user/tap/formula naming instead.
   - brew install cartr/qt4/qt
   - brew install cartr/qt4/pyqt  
   - sudo find /usr /opt -type f -name qmake -ls
-  - qmake --version # Qt version
+  # /usr/local/Cellar/qt/5.13.2/bin/qmake
+  # /usr/local/Cellar/qt@4/4.8.7_6/bin/qmake
+  - qmake --version # Qt version #Using Qt version 4.8.7 in /usr/local/lib
   # python
   - python --version
   - python3 --version
