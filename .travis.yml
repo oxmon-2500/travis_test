@@ -28,12 +28,12 @@ script:
   - brew install cartr/qt4/qt
   - brew install cartr/qt4/pyqt  
   - sudo find /usr /opt -type f -name qmake -ls
-    #     /usr/local/Cellar/qt/5.13.2/bin/qmake
-    #     /usr/local/Cellar/qt@4/4.8.7_6/bin/qmake
+        # /usr/local/Cellar/qt/5.13.2/bin/qmake
+        # /usr/local/Cellar/qt@4/4.8.7_6/bin/qmake
   - qmake --version # Qt version #Using Qt version 4.8.7 in /usr/local/lib
   # python
   - echo "--------------------------------------------------------python----------------------------------------------------"
-  # https://www.python.org/ftp/python/3.8.1/python-3.8.1-macosx10.9.pkg
+        # https://www.python.org/ftp/python/3.8.1/python-3.8.1-macosx10.9.pkg
   - python --version     # Python 2.7.17
   - python3 --version    # Python 3.7.5
   - pip3 list --format=columns # List installed packages
