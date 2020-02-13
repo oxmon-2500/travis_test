@@ -28,8 +28,8 @@ script:
   - brew install cartr/qt4/qt
   - brew install cartr/qt4/pyqt  
   - sudo find /usr /opt -type f -name qmake -ls
-  # /usr/local/Cellar/qt/5.13.2/bin/qmake
-  # /usr/local/Cellar/qt@4/4.8.7_6/bin/qmake
+    #     /usr/local/Cellar/qt/5.13.2/bin/qmake
+    #     /usr/local/Cellar/qt@4/4.8.7_6/bin/qmake
   - qmake --version # Qt version #Using Qt version 4.8.7 in /usr/local/lib
   # python
   - echo "--------------------------------------------------------python----------------------------------------------------"
