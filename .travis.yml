@@ -1,9 +1,7 @@
 # ----------------
-#language: python #works on Linux, but not osx, win
-#language: ruby
-#python:
-#  - 3.6
 os: linux
+language: python #works on Linux, but not osx, win
+python: 3.7
 #matrix:
 #  include:
 #    - name: "Python 3.8 dev"
