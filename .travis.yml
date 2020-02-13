@@ -4,6 +4,7 @@
 #python:
 #  - 3.6
 os: osx
+osx_image: xcode11.3
 #matrix:
 #  include:
 #    - name: "Python 3.8 dev"
