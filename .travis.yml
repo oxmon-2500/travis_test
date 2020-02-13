@@ -3,8 +3,7 @@
 #language: ruby
 #python:
 #  - 3.6
-os: osx
-osx_image: xcode11.3
+os: linux
 #matrix:
 #  include:
 #    - name: "Python 3.8 dev"
@@ -24,10 +23,6 @@ script:
   - uname -a
   # Qt
   - echo "--------------------------------------------------------Qt----------------------------------------------------"
-  - brew tap cartr/qt4
-  #- brew tap-pin cartr/qt4 # Error: Calling brew tap-pin user/tap is disabled! Use fully-scoped user/tap/formula naming instead.
-  - brew install cartr/qt4/qt
-  - brew install cartr/qt4/pyqt  
   - sudo find /usr /opt -type f -name qmake -ls
         # /usr/local/Cellar/qt/5.13.2/bin/qmake
         # /usr/local/Cellar/qt@4/4.8.7_6/bin/qmake
