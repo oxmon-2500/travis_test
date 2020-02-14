@@ -118,7 +118,7 @@ before_install:
   - if [[ $LINUX ]]; then sh -e /etc/init.d/xvfb start; fi
   # python3 is already the newest version (3.4.0-0ubuntu2);
   - if [[ ! $OSX ]]; then
-      source .travis_check.sh
+      source .travis_check.sh;
     fi
       
 
