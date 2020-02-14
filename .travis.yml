@@ -16,8 +16,6 @@
 
 language: cpp
 dist: trusty
-#sudo: false
-python: 3.7.5
 
 virtualenv:
   system_site_packages: true
@@ -148,8 +146,8 @@ before_script:
   - ccache --zero-stats
 
 script:
-  - /opt/python/3.6.3/bin/python3 --version
-  - /opt/python/3.6.3/bin/pip3 --version
+  - python3 --version
+  - pip3 --version
   - uname -a
   - $CXX --version
   - awk --version | head -n1
