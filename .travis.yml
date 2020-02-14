@@ -118,12 +118,7 @@ before_install:
   - if [[ $LINUX ]]; then sh -e /etc/init.d/xvfb start; fi
   # python3 is already the newest version (3.4.0-0ubuntu2);
   - if [[ ! $OSX ]]; then
-      sudo apt-get update;
-      sudo apt-get install pip3; 
-      sudo find /usr /opt ! -type d -name "python3*" -ls;
-      sudo find /usr /opt ! -type d -name "pip3*" -ls;
-      /opt/python/3.6.3/bin/python3 --version;
-      export PATH=/opt/python/3.6.3/bin:$PATH;
+      source .travis_check.sh
     fi
       
 
