@@ -123,6 +123,7 @@ before_install:
       sudo find /usr /opt ! -type d -name "python3*" -ls;
       sudo find /usr /opt ! -type d -name "pip3*" -ls;
       /opt/python/3.6.3/bin/python3 --version;
+      export PATH=/opt/python/3.6.3/bin:$PATH
     fi
       
 
@@ -150,6 +151,8 @@ before_script:
   - ccache --zero-stats
 
 script:
+  - /opt/python/3.6.3/bin/python3 --version
+  - /opt/python/3.6.3/bin/pip3 --version
   - uname -a
   - $CXX --version
   - awk --version | head -n1
