@@ -3,7 +3,7 @@ os: linux
 language: python #works on Linux, but not osx, win
 sudo: false
 
-install: 
+before_install: 
   - export PYTHON_VERS="3.7.5"
 
 python: $PYTHON_VERS # in case there are many 3.7 versions travis aborts
@@ -14,6 +14,7 @@ install:
       pip3 install --upgrade setuptools ; 
       pip3 install numpy matplotlib ; 
     fi   
+
 script:
   # system info
   - echo "--------------------------------------------------------Sys----------------------------------------------------"
