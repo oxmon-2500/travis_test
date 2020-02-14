@@ -105,7 +105,6 @@ env:
     - secure: "HfplEtCmFfgmKIKWfwe/Pw+BZcciFiIfw5gP/nF7IRVDSIjxOzwBHC+E/TyayR1iRmp3dHs6/fOrLFFNWJZzzH/qdmxGybrvECkgp5oF2ho6paAa3zcdTXan6r0+ye4JV20n6pqBtOM5IS3eQv1eFc81lTa80hzBiPQfEp3tW9w="
 
 before_install:
-before_install:
   # Set variables for readability.
   - if [[ $TRAVIS_OS_NAME == linux ]]; then LINUX=true; fi
   - if [[ $TRAVIS_OS_NAME == osx ]]; then OSX=true; fi
