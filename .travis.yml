@@ -116,9 +116,9 @@ before_install:
   - if [[ $LINUX ]]; then sh -e /etc/init.d/xvfb start; fi
   
   # python3
-  - pyenv global 3.6
+  - if [[ $LINUX ]]; then pyenv global 3.6; fi
   #- if [[ ! $OSX ]]; then
-  #    source .travis_check.sh;
+  #    source .travis_check.sh $TRAVIS_OS_NAME;
   #  fi
       
 
