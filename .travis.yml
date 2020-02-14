@@ -2,10 +2,14 @@
 os: linux
 language: python #works on Linux, but not osx, win
 python: 3.7
+sudo: false
 
 install:
   - pip3 install -r requirements.txt
-
+  - if [[ $TRAVIS_OS_NAME == linux ]]; then 
+      pip3 install --upgrade setuptools; 
+      pip3 install --user numpy matplotlib --quiet; 
+    fi   
 script:
   # system info
   - echo "--------------------------------------------------------Sys----------------------------------------------------"
