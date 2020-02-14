@@ -1,238 +1,60 @@
-
-# This script sets up Travis CI with the following matrix:
-#
-# linux: gcc  , make check, qucs-test, gcov, coveralls integration
-# linux: clang, make check, qucs-test, doxygen deploy
-# osx:   clang, make check, qucs-test
-#
-# The matrix tries to balance the run time of the instances instead of
-# creating new instances for shorter jobs.
-#
-# Most time consuming tasks:
-# - setup of gcc
-# - gcov data collection
-# - install Qt on OSX
-# - doxygen build (master only)
-
-language: cpp
-dist: trusty
-
-virtualenv:
-  system_site_packages: true
-
-cache:
-  apt: true
-  ccache: true
-  directories:
-    - $HOME/Library/Caches/Homebrew
-
-# packages required by all Linux builds
-#   additional packages are defined in the matrix, depending on needs
-addons:
-  apt:
-    packages: &native_deps
-      - gperf
-      - latex2html
-      - octave
-
-matrix:
-  include:
-    - os: linux
-      compiler: gcc
-      python: 3.7.5 # in case there are many 3.7 versions travis aborts
-      env: BUILD=cmake
-      addons:
-        apt:
-          packages:
-            - *native_deps
-
-    - os: linux
-      compiler: gcc
-      python: 3.7.5 # in case there are many 3.7 versions travis aborts
-      env: BUILD=autotools
-      addons:
-        apt:
-          packages:
-            - *native_deps
-            - lcov # lcov is required by configure, only gcov really needed thou
-            - python-tk
-
-    - os: linux
-      compiler: clang
-      python: 3.7.5 # in case there are many 3.7 versions travis aborts
-      env: BUILD=autotools
-      addons:
-        apt:
-          packages:
-            - *native_deps
-            - doxygen # add packages for  Doxygen and qucs-doc PDF build
-            - texlive
-            - texlive-math-extra
-            - texlive-science
-            - transfig
-            - gnuplot
-            - texlive-publishers
-            - graphviz
-            - texlive-font-utils
-            - ps2eps
-            - pgf
-            - python-tk
-
-    - os: osx
-      # Qt 4.8.7 official installer works up to OSX 10.10 or xcode6.4
-      # Use bottle (with Qt3Support) from cartr/qt4
-      osx_image: xcode8.3
-      compiler: clang
-      env: BUILD=autotools
-      addons:
-        homebrew:
-          taps:
-            - cartr/qt4
-            - guitorri/tap
-          packages:
-            - flex
-            - bison
-            - qt@4 # from tap
-            - adms # from tap
-            - python@3
-            - ccache
-
-# Set secure environment with encrypted string containing GIT_NAME, GIT_EMAIL and GH_TOKEN
-env:
-  global:
-    - secure: "HfplEtCmFfgmKIKWfwe/Pw+BZcciFiIfw5gP/nF7IRVDSIjxOzwBHC+E/TyayR1iRmp3dHs6/fOrLFFNWJZzzH/qdmxGybrvECkgp5oF2ho6paAa3zcdTXan6r0+ye4JV20n6pqBtOM5IS3eQv1eFc81lTa80hzBiPQfEp3tW9w="
-
-before_install:
-  # Set variables for readability.
-  - if [[ $TRAVIS_OS_NAME == linux ]]; then LINUX=true; fi
-  - if [[ $TRAVIS_OS_NAME == osx ]]; then OSX=true; fi
-  - if [[ $CC == gcc ]]; then GCC=true; fi
-  - if [[ $CC == clang ]]; then CLANG=true; fi
-  - if [[ $BUILD == autotools ]]; then AUTOTOOLS=true; fi
-  - if [[ $BUILD == cmake ]]; then CMAKE=true; fi
-
-  # Set xvfb for headless qucs GUI test
-  - "export DISPLAY=:99.0"
-  - if [[ $LINUX ]]; then sh -e /etc/init.d/xvfb start; fi
-  
-  # python3
-  - if [[ $LINUX ]]; then pyenv global 3.6; fi
-  #- if [[ ! $OSX ]]; then
-  #    source .travis_check.sh $TRAVIS_OS_NAME;
-  #  fi
-      
-
+# ----------------
+#language: python #works on Linux, but not osx, win
+#language: ruby
+#python:
+#  - 3.6
+os: osx
+osx_image: xcode11.3
+#matrix:
+#  include:
+#    - name: "Python 3.8 dev"
+#      python: 3.8-dev
+#      xenial: trusty
+#      env: PYTHON=python3 PIP=pip3  # Unnecessary on Lunixinstall:
+#  - pip install -r requirements.txt
 install:
-  # Setup Linux
-  # Set up for Coveralls for GCC (LINUX) only
-  - if [[ $GCC ]]; then pip3 install cpp-coveralls --quiet; fi
-
-  # Qucs-Test uses Numpy to compare results
-  - if [[ $LINUX ]]; then pip3 install --only-binary=numpy,matplotlib numpy matplotlib --quiet; fi
-
-  # Setup OSX
-  # Installed already: autoconf automake libtool pkg-config
-  - if [[ $OSX ]]; then
-      export PATH="/usr/local/opt/flex/bin:$PATH";
-      export PATH="/usr/local/opt/bison/bin:$PATH";
-      pip3 install matplotlib;
-      brew install ccache;
-    fi
-
-before_script:
-  - ccache --version
-  - ccache --zero-stats
-
+  - pip3 install -r requirements.txt
+  #- ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  #- export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+  #- export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+  #- brew install python
 script:
-  - python3 --version
-  - pip3 --version
+  # system info
+  - echo "--------------------------------------------------------Sys----------------------------------------------------"
   - uname -a
-  - $CXX --version
-  - awk --version | head -n1
-  - autoconf --version
-  - automake --version
-  - which flex  && flex --version
-  - which bison && bison --version
-  # use gcov matched to GCC
-  - if [[ $GCC && $AUTOTOOLS ]]; then which gcov-4.8 && gcov-4.8 --version; fi
-  - if [[ $GCC && $AUTOTOOLS ]]; then  lcov --version; fi
-  - python3 --version
-  #- python3 -c "import numpy; print numpy.__version__"
-  - pip3 list --format=columns # List installed packages 
-  - pwd
-  - ls
-
-  - if [[ $LINUX && $CLANG ]]; then
-      ls -trla /usr/lib/ccache;
-    fi
-
-    # For some reason clang compiler toolchain installation in Ubuntu does not have symlink in the ccache symlinks directory, so workaround it
-  - if [[ $LINUX && $CLANG ]]; then
-      ln -s $(which ccache) $HOME/clang && ln -s $(which ccache) $HOME/clang++ && export PATH=$HOME:$PATH;
-    fi
-
-  # fetch gtest...
-  - wget https://github.com/google/googletest/archive/release-1.7.0.tar.gz -O /tmp/gtest.tar.gz --quiet
-  - mkdir /tmp/gtest
-  - tar --strip-components=1 -C /tmp/gtest -xvf /tmp/gtest.tar.gz
-
-
-  # Build ADMS from release (avoid need of Perl and its modules)
-  #   install locally to avoid using sudo, add local bin/ to PATH so the Qucs configure can find it
-  - if [[ $LINUX ]]; then
-      wget http://sourceforge.net/projects/mot-adms/files/adms-source/2.3/adms-2.3.6.tar.gz -O /tmp/adms-2.3.6.tar.gz --quiet || travis_terminate 1;
-      tar -xzvf /tmp/adms-2.3.6.tar.gz;
-      cd adms-2.3.6 && ./configure --prefix=$HOME && make && make install && cd .. || travis_terminate 1;
-      export PATH=$HOME/bin:$PATH;
-    fi
-
-  # Check available tools
-  - which admsXml && admsXml --version
-
-  # enable parallel make after building ADMS
-  - export MAKEFLAGS="-j2"
-
-  # run all checks
-  - ./bootstrap
-
-  - if [[ $OSX ]]; then
-      ./configure --disable-dependency-tracking --with-gtest=/tmp/gtest --disable-doc PYTHON=python3 || travis_terminate 1;
-      make || travis_terminate 1;
-      make qucscheck PYTHON=python3 || travis_terminate 1;
-    fi
-
-  # clang 5.0.0 complains a lot about unused command line arguments
-  # set CXXFLAGS also in 'make distcheck' as specifying DISTCHECK_CONFIGURE_FLAGS will retrigger configure
-  - if [[ $LINUX && $AUTOTOOLS && $CLANG ]]; then
-      ./configure CXXFLAGS="-Wno-unused-command-line-argument" --disable-dependency-tracking --with-gtest=/tmp/gtest --enable-doc || travis_terminate 1;
-      make distcheck DISTCHECK_CONFIGURE_FLAGS="CXXFLAGS=-Wno-unused-command-line-argument --with-gtest=/tmp/gtest --enable-doc" || travis_terminate 1;
-    fi
-
-  - if [[ $LINUX && $AUTOTOOLS && $GCC ]]; then
-      ./configure --disable-dependency-tracking --with-gtest=/tmp/gtest --disable-doc || travis_terminate 1;
-      make distcheck DISTCHECK_CONFIGURE_FLAGS="--with-gtest=/tmp/gtest --disable-dependency-tracking --disable-doc" || travis_terminate 1;
-    fi
-
-  # with cmake build only
-  - if [[ $CMAKE ]]; then
-      mkdir build;
-      cd build;
-      cmake .. -DCMAKE_INSTALL_PREFIX=$HOME || travis_terminate 1;
-      make || travis_terminate 1;
-      make test || travis_terminate 1;
-      make install || travis_terminate 1;
-      export PATH=$HOME/bin:$PATH;
-      qucs -v || travis_terminate 1;
-      qucsator -v || travis_terminate 1;
-    fi
-
-  - echo $TRAVIS_BRANCH
-
-  # incomplete
-  - echo incomplete stuff, $TRAVIS_BRANCH
-  - if [[ $TRAVIS_BRANCH == develop ]] ; then
-      echo developmentstuff...;
-    fi
-
-  - ccache --show-stats
+  # Qt
+  - echo "--------------------------------------------------------Qt----------------------------------------------------"
+  - brew tap cartr/qt4
+  #- brew tap-pin cartr/qt4 # Error: Calling brew tap-pin user/tap is disabled! Use fully-scoped user/tap/formula naming instead.
+  - brew install cartr/qt4/qt
+  - brew install cartr/qt4/pyqt  
+  - sudo find /usr /opt -type f -name qmake -ls
+        # /usr/local/Cellar/qt/5.13.2/bin/qmake
+        # /usr/local/Cellar/qt@4/4.8.7_6/bin/qmake
+  - qmake --version # Qt version #Using Qt version 4.8.7 in /usr/local/lib
+  # python
+  - echo "--------------------------------------------------------python----------------------------------------------------"
+        # https://www.python.org/ftp/python/3.8.1/python-3.8.1-macosx10.9.pkg
+  - python --version     # Python 2.7.17
+  - python3 --version    # Python 3.7.5
+  - pip3 list --format=columns # List installed packages
+  - cat test01.py
+  - python3 test01.py
+  # clang
+  - echo "--------------------------------------------------------clang----------------------------------------------------"
+  - clang --version
+  # ccache
+  - echo "--------------------------------------------------------ccache----------------------------------------------------"
+  - ls -l /usr
+  - sudo find /usr /opt -type f -name ccache -ls
+  - brew install ccache
+  - sudo find /usr /opt -type f -name ccache -ls # /usr/local/Cellar/ccache/3.7.6/bin/ccache
+  - export PATH=/usr/local/Cellar/ccache/3.7.6/bin/ccache:$PATH
+  - ccache --version
+  # flex
+  - echo "--------------------------------------------------------flex----------------------------------------------------"
+  - flex --version
+  # bison
+  - echo "--------------------------------------------------------bison----------------------------------------------------"
+  - bison --version
 
