@@ -7,8 +7,8 @@ sudo: false
 install:
   - pip3 install -r requirements.txt
   - if [[ $TRAVIS_OS_NAME == linux ]]; then 
-      pip3 install --upgrade setuptools; 
-      pip3 install --user numpy matplotlib --quiet; 
+      pip3 install --upgrade setuptools ; 
+      pip3 install numpy matplotlib ; 
     fi   
 script:
   # system info
