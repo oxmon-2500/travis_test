@@ -106,8 +106,6 @@ env:
 
 before_install:
 before_install:
-  - sudo apt-get update
-  - sudo apt-get install python3  
   # Set variables for readability.
   - if [[ $TRAVIS_OS_NAME == linux ]]; then LINUX=true; fi
   - if [[ $TRAVIS_OS_NAME == osx ]]; then OSX=true; fi
@@ -118,15 +116,20 @@ before_install:
 
   # Set xvfb for headless qucs GUI test
   - "export DISPLAY=:99.0"
-  -  if [[ $LINUX ]]; then sh -e /etc/init.d/xvfb start; fi
+  - if [[ $LINUX ]]; then sh -e /etc/init.d/xvfb start; fi
+  - if [[ ! $OSX ]]; then
+      sudo apt-get update
+      sudo apt-get install python3
+    fi
+      
 
 install:
   # Setup Linux
   # Set up for Coveralls for GCC (LINUX) only
-  - if [[ $GCC ]]; then pip install cpp-coveralls --quiet; fi
+  - if [[ $GCC ]]; then pip3 install cpp-coveralls --quiet; fi
 
   # Qucs-Test uses Numpy to compare results
-  - if [[ $LINUX ]]; then pip install --only-binary=numpy,matplotlib numpy matplotlib --quiet; fi
+  - if [[ $LINUX ]]; then pip3 install --only-binary=numpy,matplotlib numpy matplotlib --quiet; fi
 
   # Setup OSX
   # Installed already: autoconf automake libtool pkg-config
