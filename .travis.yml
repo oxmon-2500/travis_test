@@ -2,8 +2,10 @@
 os: linux
 language: python #works on Linux, but not osx, win
 sudo: false
-  
-python: 3.7.5 # in case there are many 3.7 versions travis aborts
+env:
+  global:
+    - PYTHON_VERS=3.7.5  
+python: $PYTHON_VERS # in case there are many 3.7 versions travis aborts
 
 install:
   - pip3 install -r requirements.txt
