@@ -117,6 +117,7 @@ before_install:
   -  if [[ $LINUX ]]; then sh -e /etc/init.d/xvfb start; fi
 
 install:
+  - python: 3.7.5
   # Setup Linux
   # Set up for Coveralls for GCC (LINUX) only
   - if [[ $GCC ]]; then pip3 install cpp-coveralls --quiet; fi
