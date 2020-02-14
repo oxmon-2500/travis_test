@@ -17,6 +17,7 @@
 language: cpp
 dist: trusty
 #sudo: false
+python: 3.7.5
 
 virtualenv:
   system_site_packages: true
