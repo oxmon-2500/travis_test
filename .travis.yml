@@ -159,7 +159,7 @@ script:
   - if [[ $GCC && $AUTOTOOLS ]]; then which gcov-4.8 && gcov-4.8 --version; fi
   - if [[ $GCC && $AUTOTOOLS ]]; then  lcov --version; fi
   - python3 --version
-  - python3 -c "import numpy; print numpy.__version__"
+  #- python3 -c "import numpy; print numpy.__version__"
   - pip3 list --format=columns # List installed packages 
   - pwd
   - ls
