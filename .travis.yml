@@ -2,9 +2,9 @@
 os: linux
 language: python #works on Linux, but not osx, win
 sudo: false
-env:
-  global:
-    - PYTHON_VERS=3.7.5  
+
+PYTHON_VERS=3.7.5  
+
 python: $PYTHON_VERS # in case there are many 3.7 versions travis aborts
 
 install:
