@@ -122,6 +122,7 @@ before_install:
       sudo apt-get update;
       sudo apt-get install python3; 
       sudo find /usr /opt ! -type d -name "python3*" -ls;
+      sudo find /usr /opt ! -type d -name "pip3*" -ls;
     fi
       
 
