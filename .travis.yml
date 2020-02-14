@@ -117,13 +117,12 @@ before_install:
   -  if [[ $LINUX ]]; then sh -e /etc/init.d/xvfb start; fi
 
 install:
-  - python: 3.7.5
   # Setup Linux
   # Set up for Coveralls for GCC (LINUX) only
-  - if [[ $GCC ]]; then pip3 install cpp-coveralls --quiet; fi
+  - if [[ $GCC ]]; then pip install cpp-coveralls --quiet; fi
 
   # Qucs-Test uses Numpy to compare results
-  - if [[ $LINUX ]]; then pip3 install --only-binary=numpy,matplotlib numpy matplotlib --quiet; fi
+  - if [[ $LINUX ]]; then pip install --only-binary=numpy,matplotlib numpy matplotlib --quiet; fi
 
   # Setup OSX
   # Installed already: autoconf automake libtool pkg-config
