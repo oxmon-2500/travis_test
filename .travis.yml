@@ -6,8 +6,8 @@ sudo: false
 before_install: 
   - export PYTHON_VERS="3.7.5"
 
-python: $PYTHON_VERS # in case there are many 3.7 versions travis aborts
-
+python: 3.7.5 # in case there are many 3.7 versions travis aborts
+    
 install:
   - pip3 install -r requirements.txt
   - if [[ $TRAVIS_OS_NAME == linux ]]; then 
