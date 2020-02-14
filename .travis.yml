@@ -14,11 +14,11 @@ install:
       pip3 install --upgrade setuptools ; 
       pip3 install numpy matplotlib ; 
     fi
+
+script:
   - sudo find /usr /opt ! -type d -name "pip3" -ls
   - sudo find /usr /opt ! -type d -name "python3" -ls
   - echo $PATH
-
-script:
   # system info
   - echo "--------------------------------------------------------Sys----------------------------------------------------"
   - uname -a
