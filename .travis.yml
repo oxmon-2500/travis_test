@@ -136,9 +136,7 @@ install:
       export PATH="/usr/local/opt/flex/bin:$PATH";
       export PATH="/usr/local/opt/bison/bin:$PATH";
       pip3 install matplotlib;
-      export PATH="/usr/local/opt/ccache/libexec:$PATH";
       brew install ccache;
-      sudo find /usr /opt -type f -name ccache -ls;
     fi
 
 before_script:
