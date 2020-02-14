@@ -116,10 +116,12 @@ before_install:
   # Set xvfb for headless qucs GUI test
   - "export DISPLAY=:99.0"
   - if [[ $LINUX ]]; then sh -e /etc/init.d/xvfb start; fi
-  # python3 is already the newest version (3.4.0-0ubuntu2);
-  - if [[ ! $OSX ]]; then
-      source .travis_check.sh;
-    fi
+  
+  # python3
+  - pyenv global 3.6
+  #- if [[ ! $OSX ]]; then
+  #    source .travis_check.sh;
+  #  fi
       
 
 install:
