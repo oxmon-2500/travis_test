@@ -49,7 +49,7 @@ if [[ $TRAVIS_OS_NAME == osx ]]; then
   -DQT_DEPRECATED_WARNINGS \
   -std=c++0x  -g -O2 -c -o helloWorld.o helloWorld.cpp
   
-  clang++ -g -O2 -o helloWorld.o -Wl,-bind_at_load  ./.libs/libqucsschematic.a \
+  clang++ -g -O2 -o helloWorld.o \
   -ldl \
   -framework Qt3Support \
   -framework QtTest \
