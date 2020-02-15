@@ -13,7 +13,7 @@ osx_image: xcode11.3
 #      env: PYTHON=python3 PIP=pip3  # Unnecessary on Lunixinstall:
 #  - pip install -r requirements.txt
 before_install:
-  - source .travis_check.sh 
+  - source .travis_check.sh $TRAVIS_OS_NAME
 install:
   - pip3 install -r requirements.txt
   #- ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
