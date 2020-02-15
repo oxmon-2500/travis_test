@@ -19,10 +19,10 @@ if [[ $TRAVIS_OS_NAME == osx ]]; then
   brew tap cartr/qt4
   brew tap-pin cartr/qt4
   brew install qt@4
-  echo "---------------------------------brew --help -------------------------------------"
-  brew --help
-  echo "---------------------------------brew instal --help -------------------------------------"
-  brew install --help
+  #echo "---------------------------------brew --help -------------------------------------"
+  #brew --help
+  #echo "---------------------------------brew instal --help -------------------------------------"
+  #brew install --help
   sudo find /usr /opt ! -type d -iname "QtCore" -ls
   sudo find /usr /opt -iname "Qt3Support" -ls
   #/usr/local/Cellar/qt@4/4.8.7_6/lib/Qt3Support.framework/Qt3Support -> Versions/4/Qt3Support
@@ -34,6 +34,7 @@ if [[ $TRAVIS_OS_NAME == osx ]]; then
   clang++ --version
   #clang++ -DHAVE_CONFIG_H -I. -I..    -I../qucs-lib -I/usr/local/lib/QtCore.framework/Headers -I/usr/local/lib/QtGui.framework/Headers -I/usr/local/lib/QtXml.framework/Headers -I/usr/local/lib/QtSvg.framework/Headers -I/usr/local/lib/QtScript.framework/Headers -I/usr/local/lib/QtTest.framework/Headers -I/usr/local/lib/Qt3Support.framework/Headers -DQT_SHARED -DQT3_SUPPORT -DQT3_SUPPORT_WARNINGS -DQT_DEPRECATED_WARNINGS -std=c++0x  -g -O2 -c -o main.o main.cpp
   #clang++ -g -O2 -o qucs.real main.o qucs_.o -Wl,-bind_at_load  ./.libs/libqucsschematic.a -ldl -framework Qt3Support -framework QtTest -framework QtScript -framework QtSvg -framework QtXml -framework QtCore -framework QtGui
+  echo "----------------- clang -----------------------------------"
   clang++ -DHAVE_CONFIG_H -I. -I..  \
   -I../qucs-lib \
   -I/usr/local/lib/QtCore.framework/Headers \
@@ -48,7 +49,8 @@ if [[ $TRAVIS_OS_NAME == osx ]]; then
   -DQT3_SUPPORT_WARNINGS \
   -DQT_DEPRECATED_WARNINGS \
   -std=c++0x  -g -O2 -c -o helloWorld.o helloWorld.cpp
-  
+  echo "----------------- linker -----------------------------------"
+  QT_LIBS=/usr/local/lib
   clang++ -g -O2 -o helloWorld.o \
   -ldl \
   -framework Qt3Support \
