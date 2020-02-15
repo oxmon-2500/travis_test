@@ -14,5 +14,6 @@ fi
 python3 --version
 pip3 --version
 
-sudo find /usr /opt -name "*Qt3Support*" -ls
+brew install libqt4-qt3support
+sudo find /usr /opt -iname "*Qt3Support*" -ls
 echo "------------------------------------------ .travis_check.sh ----------------------------------"
