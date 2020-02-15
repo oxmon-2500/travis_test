@@ -50,7 +50,7 @@ if [[ $TRAVIS_OS_NAME == osx ]]; then
   -DQT_DEPRECATED_WARNINGS \
   -std=c++0x  -g -O2 -c -o helloWorld.o helloWorld.cpp
   echo "----------------- linker -----------------------------------"
-  QT_LIBS=/usr/local/lib
+  export QT_LIBS=/usr/local/lib
   clang++ -g -O2 -o helloWorld.o \
   -ldl \
   -framework Qt3Support \
