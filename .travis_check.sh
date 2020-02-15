@@ -18,7 +18,7 @@ if [[ $TRAVIS_OS_NAME == osx ]]; then
   brew tap cartr/qt4
   brew tap-pin cartr/qt4
   brew install qt@4
-  brew install libqt4-qt3support
+  brew --help
 fi
 sudo find /usr /opt -iname "*Qt3Support*" -ls
 echo "------------------------------------------ .travis_check.sh ----------------------------------"
