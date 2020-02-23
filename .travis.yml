@@ -15,7 +15,7 @@ osx_image: xcode11.3
 before_install:
   - source .travis_check.sh $TRAVIS_OS_NAME
 install:
-  - pip3 install -r requirements.txt
+  - pip3 install -r py/requirements.txt
   #- ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   #- export PATH="/usr/local/opt/python/libexec/bin:$PATH"
   #- export PATH=/usr/local/bin:/usr/local/sbin:$PATH

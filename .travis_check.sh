@@ -1,6 +1,7 @@
 #/bin/bash
 TRAVIS_OS_NAME=$1
 echo "------------------------------------------ .travis_check.sh ----------------------------------"
+sudo find /usr /opt ! -type d -name "qmake" -ls
 sudo find /usr /opt ! -type d -name "python3*" -ls
 sudo find /usr /opt ! -type d -name "pip3*" -ls
 if [[ $TRAVIS_OS_NAME == linux ]]; then
