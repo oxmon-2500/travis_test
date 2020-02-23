@@ -12,6 +12,8 @@ if [[ $TRAVIS_OS_NAME == osx ]]; then
   brew tap cartr/qt4
   brew tap-pin cartr/qt4
   brew install qt@4
+  qmake --version # Qt version #Using Qt version 4.8.7 in /usr/local/lib
+  sudo find /usr /opt -iname "*Qt3Support*" -ls
   #echo "---------------------------------brew --help -------------------------------------"
   #brew --help
   #echo "---------------------------------brew instal --help -------------------------------------"
@@ -54,6 +56,7 @@ if [[ $TRAVIS_OS_NAME == osx ]]; then
   -framework QtXml \
   -framework QtCore \
   -framework QtGui
+  cd ..
 fi
 
 echo "------------------------------------------ .travis_check_qt.sh ----------------------------------"
