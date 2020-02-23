@@ -25,7 +25,9 @@ if [[ $TRAVIS_OS_NAME == osx ]]; then
   #/usr/local/lib/QtCore.framework -> ../Cellar/qt@4/4.8.7_6/lib/QtCore.framework
   #/usr/local/Cellar/qt@4/4.8.7_6/lib/QtCore.framework/Versions/4/QtCore
   echo "----------------------ls -ls /usr/local/lib/Qt*---------------------------------------"
-  ls -ls /usr/local/lib/Qt*
+  # 0 lrwxr-xr-x  1 travis  admin  47 Feb 23 20:31 /usr/local/lib/Qt3Support.framework 
+  ls -ls /usr/local/lib/Qt* | awk '{print $2, $10}'
+  
   clang++ --version
   #clang++ -DHAVE_CONFIG_H -I. -I..    -I../qucs-lib -I/usr/local/lib/QtCore.framework/Headers -I/usr/local/lib/QtGui.framework/Headers -I/usr/local/lib/QtXml.framework/Headers -I/usr/local/lib/QtSvg.framework/Headers -I/usr/local/lib/QtScript.framework/Headers -I/usr/local/lib/QtTest.framework/Headers -I/usr/local/lib/Qt3Support.framework/Headers -DQT_SHARED -DQT3_SUPPORT -DQT3_SUPPORT_WARNINGS -DQT_DEPRECATED_WARNINGS -std=c++0x  -g -O2 -c -o main.o main.cpp
   #clang++ -g -O2 -o qucs.real main.o qucs_.o -Wl,-bind_at_load  ./.libs/libqucsschematic.a -ldl -framework Qt3Support -framework QtTest -framework QtScript -framework QtSvg -framework QtXml -framework QtCore -framework QtGui
