@@ -85,6 +85,15 @@ function inst_gnucsator(){
   showTree ${DIST_LOCAL}
   popd #gnucsator
 }
+function inst_boost(){
+  wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz
+  tar -xf boost_*.tar.gz
+  pushd boost_*
+  ./bootstrap.sh
+  ./b2
+  cp -r boost ${DIST_LOCAL}/include
+  popd #boost_*
+}
 
 if [[ $TRAVIS_OS_NAME == linux ]]; then
   #sudo apt-get update
@@ -101,11 +110,10 @@ if [[ $TRAVIS_OS_NAME == linux ]]; then
   # sudo apt-get install tree   # E: Unable to locate package tree
   echo "-------------------------username:$USER" # travis
   echo "-------------------------pwd:$(pwd)"     # /home/travis/build/${USER}/travis_test
-sudo find / -type d -name boost
-exit 0
   mkdir sources
   pushd sources
   
+  inst_boost
   inst_gnucap
   inst_gnucsator
   inst_gsl
