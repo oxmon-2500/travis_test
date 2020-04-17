@@ -8,7 +8,8 @@ before_install:
 install:
   - if [[ $TRAVIS_OS_NAME == linux ]]; then 
       echo "---------------------------install";
-      source ./travis_check_gnucap.sh $TRAVIS_OS_NAME;
+      ls -la;
+      source travis_check_gnucap.sh $TRAVIS_OS_NAME ;
     fi 
 
 script:
