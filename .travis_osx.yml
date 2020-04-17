@@ -1,0 +1,39 @@
+# ----------------
+os: osx
+osx_image: xcode11.3
+#matrix:
+#  include:
+#    - name: "Python 3.8 dev"
+#      python: 3.8-dev
+#      xenial: trusty
+#      env: PYTHON=python3 PIP=pip3  # Unnecessary on Lunixinstall:
+#  - pip install -r requirements.txt
+before_install:
+  - source travis_check_qt.sh $TRAVIS_OS_NAME
+  #- source travis_check_py.sh $TRAVIS_OS_NAME
+  #- source travis_check_cpp.sh $TRAVIS_OS_NAME
+install:
+  - pip3 install -r py/requirements.txt
+  #- ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  #- export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+  #- export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+  #- brew install python
+script:
+  # system info
+  - echo "--------------------------------------------------------Sys----------------------------------------------------"
+  - uname -a
+  # ccache
+  - echo "--------------------------------------------------------ccache----------------------------------------------------"
+  - ls -l /usr
+  - sudo find /usr /opt -type f -name ccache -ls
+  - brew install ccache
+  - sudo find /usr /opt -type f -name ccache -ls # /usr/local/Cellar/ccache/3.7.6/bin/ccache
+  - export PATH=/usr/local/Cellar/ccache/3.7.6/bin/ccache:$PATH
+  - ccache --version
+  # flex
+  - echo "--------------------------------------------------------flex----------------------------------------------------"
+  - flex --version
+  # bison
+  - echo "--------------------------------------------------------bison----------------------------------------------------"
+  - bison --version
+
