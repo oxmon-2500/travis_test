@@ -1,4 +1,5 @@
 #!/bin/sh
+set -x
 
 if test "x$1" != "x"; then
     # echo Found input parameter -- $1
@@ -35,8 +36,6 @@ GNUCSATOR_PKGLIBDIR=${pkglibdir}/qucs
 PKGINCLUDEDIR=${prefix}/include/gnucap-qucs/
 
 fill_template() {
-  if [ ! -f $1 ]; then return; fi
-  
   t=$( mktemp );#tempfile depricated -> mktemp
   sed -e "s#@prefix@#$prefix#" \
     -e "s#@exec_prefix@#$prefix#" \
