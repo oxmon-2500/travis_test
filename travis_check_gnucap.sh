@@ -62,19 +62,19 @@ if [[ $TRAVIS_OS_NAME == linux ]]; then
   echo "-------------------------pwd:$(pwd)"
   mkdir sources
   pushd sources
-  instGnuCap()
-  echo "--------------------------------------------------------------------${LD_LIBRARY_PATH}"
+  instGnuCap
+  echo "--------------------------------------------------------------------${LD_LIBRARY_PATH}---"
   export LD_LIBRARY_PATH=${DIST_LOCAL}/gnucap/lib:${LD_LIBRARY_PATH}
   ${DIST_LOCAL}/gnucap/bin/gnucap < ${START_DIR}/gnucap_cmd.txt # exit immediatly
   
-  instGsl()
+  instGsl
 
-  instBlas()    
+  instBlas
   
   popd # sources
   
   echo "--------------------------------------pwd:$(pwd)--------------------------------------"
-  
+    
   cmake --version # 20200417;       cmake version 3.12.4
   ls -l ${DIST_LOCAL}
 fi
