@@ -31,10 +31,11 @@ function instGsl(){
   wget ftp://ftp.gnu.org/gnu/gsl/gsl-2.6.tar.gz
   tar -zxf gsl-*.*.tar.gz
   pushd gsl-*
-  ./configure --prefix=${DIST_LOCAL}/gsl  >> ${DIST_LOG}    
+  ./configure --prefix=${DIST_LOCAL}  >> ${DIST_LOG}    
   make   >> ${DIST_LOG}
   #make check
   make install
+  showTree ${DIST_LOCAL}
   popd # gsl
 }
 function instBlas(){
@@ -46,7 +47,8 @@ function instBlas(){
   git clone https://github.com/xianyi/OpenBLAS.git
   pushd OpenBLAS
   make >> ${DIST_LOG}
-  make PREFIX=${DIST_LOCAL}/blas install
+  make PREFIX=${DIST_LOCAL} install
+  showTree ${DIST_LOCAL}
   popd # OpenBLAS
 }
 
@@ -58,6 +60,7 @@ function instGnucsator(){
   ./configure --prefix=${DIST_LOCAL}
   make
   make install
+  showTree ${DIST_LOCAL}
   popd #gnucsator
 }
 
@@ -81,10 +84,10 @@ if [[ $TRAVIS_OS_NAME == linux ]]; then
   instGnucap
   echo "--------------------------------------------------------------------${LD_LIBRARY_PATH}---"
   export LD_LIBRARY_PATH=${DIST_LOCAL}/gnucap/lib:${LD_LIBRARY_PATH}
-  if [ -f ${DIST_LOCAL}/gnucap/bin/gnucap ]; then 
-    ${DIST_LOCAL}/gnucap/bin/gnucap < ${START_DIR}/gnucap_cmd.txt # exit immediatly
+  if [ -f ${DIST_LOCAL}/bin/gnucap ]; then 
+    ${DIST_LOCAL}/bin/gnucap < ${START_DIR}/gnucap_cmd.txt # exit immediatly
   else
-    showTree ${DIST_LOCAL}/gnucap
+    showTree ${DIST_LOCAL}
   fi
   
   instGsl

@@ -13,21 +13,12 @@ install:
     fi 
 
 script:
-  # system info
-  - echo "--------------------------------------------------------Sys----------------------------------------------------"
-  - uname -a
-  # Qt
-  - echo "--------------------------------------------------------Qt----------------------------------------------------"
-  - sudo find /usr /opt -type f -name qmake -ls
-        # /usr/local/Cellar/qt/5.13.2/bin/qmake
-        # /usr/local/Cellar/qt@4/4.8.7_6/bin/qmake
-  - qmake --version # Qt version #Using Qt version 4.8.7 in /usr/local/lib
   # clang
   - echo "--------------------------------------------------------clang----------------------------------------------------"
   - clang --version # 20200417: clang version 7.0.0 (tags/RELEASE_700/final)
   # ccache
   - echo "--------------------------------------------------------ccache----------------------------------------------------"
-  - ls -l /usr
-  - sudo find /usr /opt -type f -name ccache -ls # /usr/local/Cellar/ccache/3.7.6/bin/ccache
+  #- ls -l /usr
+  #- sudo find /usr /opt -type f -name ccache -ls # /usr/local/Cellar/ccache/3.7.6/bin/ccache
   - ccache --version
 
