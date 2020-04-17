@@ -5,6 +5,7 @@ sudo find /usr /opt ! -type d -name "qmake" -ls
 if [[ $TRAVIS_OS_NAME == linux ]]; then
   DIST_LOCAL=~/local
   DIST_LOG=~/dist_log.log
+  START_DIR=$(pwd);#/home/travis/build/oxmon-2500/travis_test
   #sudo apt-get update
   #sudo apt-get install gnucap
   #sudo apt-get install gnucap-dev
@@ -19,17 +20,17 @@ if [[ $TRAVIS_OS_NAME == linux ]]; then
   echo "-------------------------username:$USER"
   echo "-------------------------pwd:$(pwd)"
   mkdir sources
-  push sources
+  pushd sources
   echo "----------------------------------------gnucap--------------------------"
   git clone git://git.sv.gnu.org/gnucap.git >> ${DIST_LOG}
   pushd gnucap
   git checkout develop
   ./configure --prefix=${DIST_LOCAL}/gnucap
-  make
+  make  >> ${DIST_LOG}
   make check
   make install
-  ${DIST_LOCAL}/gnucap/bin/gnucap < ~/gnucap_cmd.txt # exit immediatly
   popd # gnucap
+  ${DIST_LOCAL}/gnucap/bin/gnucap < ${START_DIR}/gnucap_cmd.txt # exit immediatly
   
   echo "----------------------------------------gsl-GNU Scientific Library -------------------------"
   wget ftp://ftp.gnu.org/gnu/gsl/gsl-2.6.tar.gz
