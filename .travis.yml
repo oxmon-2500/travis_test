@@ -7,6 +7,7 @@ before_install:
 
 install:
   - if [[ $TRAVIS_OS_NAME == linux ]]; then 
+      echo "---------------------------install"
     fi   
 
 script:
