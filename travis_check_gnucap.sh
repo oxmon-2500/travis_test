@@ -41,7 +41,10 @@ if [[ $TRAVIS_OS_NAME == linux ]]; then
   make install
   popd # gsl
   
-  echo "----------------------------------------blas--------------------------"
+  echo "----------------------------------------blas---Basic Linear Algebra Subprograms-----------------------"
+  sudo apt-get install gfortran
+  sudo apt-get install libblas-dev checkinstall
+  # CBLAS is C interface to the BLAS library
   
   popd # sources
   
