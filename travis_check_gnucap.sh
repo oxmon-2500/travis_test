@@ -76,7 +76,7 @@ function inst_gnucsator(){
   cp $START_DIR/Makefile.in . # overwrite original    !!!!!!!!!!!!!!
   # ------------- overwrite ----------------end
   ./configure --prefix=${DIST_LOCAL}
-  make
+  make || travis_terminate 1;
   make install
   showTree ${DIST_LOCAL}
   popd #gnucsator
@@ -101,9 +101,9 @@ if [[ $TRAVIS_OS_NAME == linux ]]; then
   pushd sources
   
   inst_gnucap
+  inst_gnucsator
   inst_gsl
   inst_blas
-  inst_gnucsator
   
   popd # sources
   
