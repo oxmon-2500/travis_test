@@ -88,7 +88,7 @@ function inst_boost(){
   tar -xf boost_*.tar.gz
   pushd boost_*
   ./bootstrap.sh
-  ./b2                >> ${DIST_LOG}
+  ./b2 
   if [ ! -d ${DIST_LOCAL}/include ]; then mkdir -p ${DIST_LOCAL}/include; fi
   cp -r boost ${DIST_LOCAL}/include
   popd #boost_*
