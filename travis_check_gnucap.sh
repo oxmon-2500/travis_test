@@ -19,6 +19,7 @@ function instGnucap(){
   make  >> ${DIST_LOG}
   make check
   make install
+  tree =${DIST_LOCAL}/gnucap
   popd # gnucap
 }
 
@@ -27,7 +28,7 @@ function instGsl(){
   wget ftp://ftp.gnu.org/gnu/gsl/gsl-2.6.tar.gz
   tar -zxf gsl-*.*.tar.gz
   pushd gsl-*
-  ./configure --prefix=${DIST_LOCAL}/gsl
+  ./configure --prefix=${DIST_LOCAL}/gsl  >> ${DIST_LOG}    
   make   >> ${DIST_LOG}
   #make check
   make install
@@ -62,10 +63,14 @@ if [[ $TRAVIS_OS_NAME == linux ]]; then
   echo "-------------------------pwd:$(pwd)"
   mkdir sources
   pushd sources
-  instGnuCap
+  instGnucap
   echo "--------------------------------------------------------------------${LD_LIBRARY_PATH}---"
   export LD_LIBRARY_PATH=${DIST_LOCAL}/gnucap/lib:${LD_LIBRARY_PATH}
-  ${DIST_LOCAL}/gnucap/bin/gnucap < ${START_DIR}/gnucap_cmd.txt # exit immediatly
+  if [! -f ${DIST_LOCAL}/gnucap/bin/gnucap ]; then 
+    ${DIST_LOCAL}/gnucap/bin/gnucap < ${START_DIR}/gnucap_cmd.txt # exit immediatly
+  else
+    tree ${DIST_LOCAL}/gnucap
+  fi
   
   instGsl
 

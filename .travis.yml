@@ -24,7 +24,7 @@ script:
   - qmake --version # Qt version #Using Qt version 4.8.7 in /usr/local/lib
   # clang
   - echo "--------------------------------------------------------clang----------------------------------------------------"
-  - clang --version
+  - clang --version # 20200417: clang version 7.0.0 (tags/RELEASE_700/final)
   # ccache
   - echo "--------------------------------------------------------ccache----------------------------------------------------"
   - ls -l /usr
