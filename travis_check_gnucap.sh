@@ -12,23 +12,36 @@ function sysInfo(){
 
 function showTree(){
   find $1 -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"
+  find $1 -type f -ls
 }
-function instGnucap(){
+function inst_gnucap(){
   echo "----------------------------------------gnucap--------------------------"
   git clone git://git.sv.gnu.org/gnucap.git >> ${DIST_LOG}
   pushd gnucap
   git checkout develop
   ./configure --prefix=${DIST_LOCAL}
-  make  >> ${DIST_LOG}
-  make check
+  make         >> ${DIST_LOG}
+  make check   >> ${DIST_LOG}
   make install
   showTree ${DIST_LOCAL}
   popd # gnucap
+  
+  echo "--------------------------------------------------------------------${LD_LIBRARY_PATH}---"
+  export LD_LIBRARY_PATH=${DIST_LOCAL}/lib:${LD_LIBRARY_PATH}
+  if [ -f ${DIST_LOCAL}/bin/gnucap ]; then 
+    ${DIST_LOCAL}/bin/gnucap < ${START_DIR}/gnucap_cmd.txt # exit immediatly
+  else
+    showTree ${DIST_LOCAL}
+  fi
 }
 
-function instGsl(){
+function inst_gsl(){
   echo "----------------------------------------gsl-GNU Scientific Library -------------------------"
-  wget ftp://ftp.gnu.org/gnu/gsl/gsl-2.6.tar.gz
+  #wget ftp://ftp.gnu.org/gnu/gsl/gsl-2.6.tar.gz
+  # mirrors
+  #wget http://mirror.easyname.at/gnu/gsl/gsl-2.6.tar.gz
+  wget http://mirror.kumi.systems/gnu/gsl/gsl-2.6.tar.gz
+  #
   tar -zxf gsl-*.*.tar.gz
   pushd gsl-*
   ./configure --prefix=${DIST_LOCAL}  >> ${DIST_LOG}    
@@ -38,7 +51,7 @@ function instGsl(){
   showTree ${DIST_LOCAL}
   popd # gsl
 }
-function instBlas(){
+function inst_blas(){
   echo "----------------------------------------blas---Basic Linear Algebra Subprograms-----------------------"
   # sudo apt-get install gfortran # Package gfortran is not available, but is referred to by another package.
   # sudo apt-get install libblas-dev checkinstall
@@ -52,7 +65,7 @@ function instBlas(){
   popd # OpenBLAS
 }
 
-function instGnucsator(){
+function inst_gnucsator(){
   echo "----------------------------------------blas---Basic Linear Algebra Subprograms-----------------------"
   git clone https://github.com/Qucs/gnucsator.git
   pushd gnucsator
@@ -81,20 +94,11 @@ if [[ $TRAVIS_OS_NAME == linux ]]; then
   echo "-------------------------pwd:$(pwd)"     # /home/travis/build/${USER}/travis_test
   mkdir sources
   pushd sources
-  instGnucap
-  echo "--------------------------------------------------------------------${LD_LIBRARY_PATH}---"
-  export LD_LIBRARY_PATH=${DIST_LOCAL}/gnucap/lib:${LD_LIBRARY_PATH}
-  if [ -f ${DIST_LOCAL}/bin/gnucap ]; then 
-    ${DIST_LOCAL}/bin/gnucap < ${START_DIR}/gnucap_cmd.txt # exit immediatly
-  else
-    showTree ${DIST_LOCAL}
-  fi
   
-  instGsl
-
-  instBlas
-  
-  instGnucsator
+  inst_gnucap
+  inst_gsl
+  inst_blas
+  inst_gnucsator
   
   popd # sources
   
