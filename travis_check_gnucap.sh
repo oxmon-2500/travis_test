@@ -68,14 +68,17 @@ function inst_blas(){
 function inst_gnucsator(){
   echo "----------------------------------------gnucsator-----------------------"
   export PATH=${DIST_LOCAL}/bin:$PATH; # make gnucap-conf available
+  echo "Szb------------------------------$PATH"
   git clone -q https://github.com/Qucs/gnucsator.git
   pushd gnucsator
   #git checkout develop
   # ------------- overwrite ----------------begin
+  echo "SzB-----------------------------------overwrite"
   cp $START_DIR/configure .   # overwrite original    !!!!!!!!!!!!!!
   cp $START_DIR/Makefile.in . # overwrite original    !!!!!!!!!!!!!!
   # ------------- overwrite ----------------end
-  ./configure --prefix=${DIST_LOCAL}
+  echo "SzB-----------------------------------before configure"
+  ./configure --prefix=${DIST_LOCAL}    
   ls -la
   make all || travis_terminate 1;
   make install || travis_terminate 2;
