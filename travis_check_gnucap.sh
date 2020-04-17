@@ -16,7 +16,7 @@ function showTree(){
 }
 function inst_gnucap(){
   echo "----------------------------------------gnucap--------------------------"
-  git clone git://git.sv.gnu.org/gnucap.git >> ${DIST_LOG}
+  git clone -q git://git.sv.gnu.org/gnucap.git >> ${DIST_LOG}
   pushd gnucap
   git checkout develop
   ./configure --prefix=${DIST_LOCAL}
@@ -57,7 +57,7 @@ function inst_blas(){
   # sudo apt-get install libblas-dev checkinstall
   # CBLAS is C interface to the BLAS library
   # https://www.netlib.org/blas/blas-3.8.0.tgz ??
-  git clone https://github.com/xianyi/OpenBLAS.git
+  git clone -q https://github.com/xianyi/OpenBLAS.git
   pushd OpenBLAS
   make FC=gfortran #>> ${DIST_LOG}
   make PREFIX=${DIST_LOCAL} install
@@ -68,9 +68,13 @@ function inst_blas(){
 function inst_gnucsator(){
   echo "----------------------------------------blas---Basic Linear Algebra Subprograms-----------------------"
   export PATH=${DIST_LOCAL}/bin:$PATH; # make gnucap-conf available
-  git clone https://github.com/Qucs/gnucsator.git
+  git clone -q https://github.com/Qucs/gnucsator.git
   pushd gnucsator
   #git checkout develop
+  # ------------- overwrite ----------------begin
+  cp $START_DIR/configure .   # overwrite original    !!!!!!!!!!!!!!
+  cp $START_DIR/Makefile.in . # overwrite original    !!!!!!!!!!!!!!
+  # ------------- overwrite ----------------end
   ./configure --prefix=${DIST_LOCAL}
   make
   make install
