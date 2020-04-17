@@ -37,7 +37,7 @@ ifneq ($(PREFIX),)
 	 GNUCSATOR_PKGLIBDIR = ${GNUCAP_LIBDIR}/gnucap/qucs
 endif
 
-GNUCAP_CXXFLAGS+= -fPIC -std=c++11 -shared -Wall 
+GNUCAP_CXXFLAGS+= -fPIC -std=c++11 -shared -Wall -I@prefix@/include
 EXECUTABLES = \
   ${bin_PROGRAMS} ${dist_bin_SCRIPTS} ${contrib_bin_SCRIPTS}
 
