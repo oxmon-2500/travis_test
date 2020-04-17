@@ -59,7 +59,7 @@ function inst_blas(){
   # https://www.netlib.org/blas/blas-3.8.0.tgz ??
   git clone https://github.com/xianyi/OpenBLAS.git
   pushd OpenBLAS
-  make >> ${DIST_LOG}
+  make FC=gfortran #>> ${DIST_LOG}
   make PREFIX=${DIST_LOCAL} install
   showTree ${DIST_LOCAL}
   popd # OpenBLAS
@@ -67,6 +67,7 @@ function inst_blas(){
 
 function inst_gnucsator(){
   echo "----------------------------------------blas---Basic Linear Algebra Subprograms-----------------------"
+  export PATH=${DIST_LOCAL}/bin:$PATH; # make gnucap-conf available
   git clone https://github.com/Qucs/gnucsator.git
   pushd gnucsator
   #git checkout develop
