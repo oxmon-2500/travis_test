@@ -101,6 +101,8 @@ if [[ $TRAVIS_OS_NAME == linux ]]; then
   # sudo apt-get install tree   # E: Unable to locate package tree
   echo "-------------------------username:$USER" # travis
   echo "-------------------------pwd:$(pwd)"     # /home/travis/build/${USER}/travis_test
+sudo find / -type d -name boost
+exit 0
   mkdir sources
   pushd sources
   
