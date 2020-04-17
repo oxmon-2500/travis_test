@@ -10,6 +10,9 @@ function sysInfo(){
   #sudo find /usr /opt ! -type d -name "qmake" -ls
 }
 
+function showTree(){
+  find $1 -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"
+}
 function instGnucap(){
   echo "----------------------------------------gnucap--------------------------"
   git clone git://git.sv.gnu.org/gnucap.git >> ${DIST_LOG}
@@ -19,7 +22,7 @@ function instGnucap(){
   make  >> ${DIST_LOG}
   make check
   make install
-  tree =${DIST_LOCAL}/gnucap
+  showTree ${DIST_LOCAL}/gnucap
   popd # gnucap
 }
 
@@ -47,6 +50,17 @@ function instBlas(){
   popd # OpenBLAS
 }
 
+function instGnucsator(){
+  echo "----------------------------------------blas---Basic Linear Algebra Subprograms-----------------------"
+  git clone https://github.com/Qucs/gnucsator.git
+  pushd gnucsator
+  git checkout develop
+  ./configure --prefix=${DIST_LOCAL}/gnucsator
+  make
+  make install
+  popd #gnucsator
+}
+
 if [[ $TRAVIS_OS_NAME == linux ]]; then
   #sudo apt-get update
   #sudo apt-get install gnucap
@@ -59,9 +73,9 @@ if [[ $TRAVIS_OS_NAME == linux ]]; then
   #- apt install libgsl-dev
   #- apt install libblas-dev
   #- apt install numdiff # used in "make check"
-  sudo apt-get install tree
-  echo "-------------------------username:$USER"
-  echo "-------------------------pwd:$(pwd)"
+  # sudo apt-get install tree   # E: Unable to locate package tree
+  echo "-------------------------username:$USER" # travis
+  echo "-------------------------pwd:$(pwd)"     # /home/travis/build/${USER}/travis_test
   mkdir sources
   pushd sources
   instGnucap
@@ -70,12 +84,14 @@ if [[ $TRAVIS_OS_NAME == linux ]]; then
   if [ -f ${DIST_LOCAL}/gnucap/bin/gnucap ]; then 
     ${DIST_LOCAL}/gnucap/bin/gnucap < ${START_DIR}/gnucap_cmd.txt # exit immediatly
   else
-    tree ${DIST_LOCAL}/gnucap
+    showTree ${DIST_LOCAL}/gnucap
   fi
   
   instGsl
 
   instBlas
+  
+  instGnucsator
   
   popd # sources
   
