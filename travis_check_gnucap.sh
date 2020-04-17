@@ -73,11 +73,9 @@ function inst_gnucsator(){
   pushd gnucsator
   #git checkout develop
   # ------------- overwrite ----------------begin
-  echo "SzB-----------------------------------overwrite"
   cp $START_DIR/configure .   # overwrite original    !!!!!!!!!!!!!!
   cp $START_DIR/Makefile.in . # overwrite original    !!!!!!!!!!!!!!
   # ------------- overwrite ----------------end
-  echo "SzB-----------------------------------before configure"
   ./configure --prefix=${DIST_LOCAL}    
   ls -la
   make all || travis_terminate 1;
@@ -86,12 +84,15 @@ function inst_gnucsator(){
   popd #gnucsator
 }
 function inst_boost(){
+  echo "----------------------------------------boost-----------------------"
   wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz
   tar -xf boost_*.tar.gz
   pushd boost_*
   ./bootstrap.sh
   ./b2
+  if [ ! -d ${DIST_LOCAL}/include ]; then mkdir ${DIST_LOCAL}/include; fi
   cp -r boost ${DIST_LOCAL}/include
+  ls -l /home/travis/local/include/boost # SzB remove
   popd #boost_*
 }
 
