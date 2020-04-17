@@ -18,11 +18,11 @@ function instGnucap(){
   git clone git://git.sv.gnu.org/gnucap.git >> ${DIST_LOG}
   pushd gnucap
   git checkout develop
-  ./configure --prefix=${DIST_LOCAL}/gnucap
+  ./configure --prefix=${DIST_LOCAL}
   make  >> ${DIST_LOG}
   make check
   make install
-  showTree ${DIST_LOCAL}/gnucap
+  showTree ${DIST_LOCAL}
   popd # gnucap
 }
 
@@ -54,8 +54,8 @@ function instGnucsator(){
   echo "----------------------------------------blas---Basic Linear Algebra Subprograms-----------------------"
   git clone https://github.com/Qucs/gnucsator.git
   pushd gnucsator
-  git checkout develop
-  ./configure --prefix=${DIST_LOCAL}/gnucsator
+  #git checkout develop
+  ./configure --prefix=${DIST_LOCAL}
   make
   make install
   popd #gnucsator
