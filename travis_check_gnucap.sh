@@ -90,7 +90,7 @@ function inst_boost(){
   pushd boost_*
   ./bootstrap.sh
   ./b2
-  if [ ! -d ${DIST_LOCAL}/include ]; then mkdir ${DIST_LOCAL}/include; fi
+  if [ ! -d ${DIST_LOCAL}/include ]; then mkdir -p ${DIST_LOCAL}/include; fi
   cp -r boost ${DIST_LOCAL}/include
   ls -l /home/travis/local/include/boost # SzB remove
   popd #boost_*
