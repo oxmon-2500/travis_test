@@ -66,7 +66,7 @@ function inst_blas(){
 }
 
 function inst_gnucsator(){
-  echo "----------------------------------------blas---Basic Linear Algebra Subprograms-----------------------"
+  echo "----------------------------------------gnucsator-----------------------"
   export PATH=${DIST_LOCAL}/bin:$PATH; # make gnucap-conf available
   git clone -q https://github.com/Qucs/gnucsator.git
   pushd gnucsator
@@ -76,8 +76,9 @@ function inst_gnucsator(){
   cp $START_DIR/Makefile.in . # overwrite original    !!!!!!!!!!!!!!
   # ------------- overwrite ----------------end
   ./configure --prefix=${DIST_LOCAL}
-  make || travis_terminate 1;
-  make install
+  ls -la
+  make all || travis_terminate 1;
+  make install || travis_terminate 2;
   showTree ${DIST_LOCAL}
   popd #gnucsator
 }
