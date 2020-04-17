@@ -68,7 +68,6 @@ function inst_blas(){
 function inst_gnucsator(){
   echo "----------------------------------------gnucsator-----------------------"
   export PATH=${DIST_LOCAL}/bin:$PATH; # make gnucap-conf available
-  echo "Szb------------------------------$PATH"
   git clone -q https://github.com/Qucs/gnucsator.git
   pushd gnucsator
   #git checkout develop
@@ -89,10 +88,9 @@ function inst_boost(){
   tar -xf boost_*.tar.gz
   pushd boost_*
   ./bootstrap.sh
-  ./b2
+  ./b2                >> ${DIST_LOG}
   if [ ! -d ${DIST_LOCAL}/include ]; then mkdir -p ${DIST_LOCAL}/include; fi
   cp -r boost ${DIST_LOCAL}/include
-  ls -l /home/travis/local/include/boost # SzB remove
   popd #boost_*
 }
 
@@ -116,9 +114,9 @@ if [[ $TRAVIS_OS_NAME == linux ]]; then
   
   inst_boost
   inst_gnucap
-  inst_gnucsator
   inst_gsl
   inst_blas
+  inst_gnucsator
   
   popd # sources
   
