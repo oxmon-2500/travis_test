@@ -59,6 +59,7 @@ if [[ $TRAVIS_OS_NAME == linux ]]; then
   #- apt install libgsl-dev
   #- apt install libblas-dev
   #- apt install numdiff # used in "make check"
+  sudo apt-get install tree
   echo "-------------------------username:$USER"
   echo "-------------------------pwd:$(pwd)"
   mkdir sources
@@ -66,7 +67,7 @@ if [[ $TRAVIS_OS_NAME == linux ]]; then
   instGnucap
   echo "--------------------------------------------------------------------${LD_LIBRARY_PATH}---"
   export LD_LIBRARY_PATH=${DIST_LOCAL}/gnucap/lib:${LD_LIBRARY_PATH}
-  if [! -f ${DIST_LOCAL}/gnucap/bin/gnucap ]; then 
+  if [ -f ${DIST_LOCAL}/gnucap/bin/gnucap ]; then 
     ${DIST_LOCAL}/gnucap/bin/gnucap < ${START_DIR}/gnucap_cmd.txt # exit immediatly
   else
     tree ${DIST_LOCAL}/gnucap
