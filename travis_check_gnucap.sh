@@ -1,4 +1,11 @@
 #/bin/bash
+
+# Install CBLAS in Ubuntu & Cygwin:
+#   https://vibrationdata.wordpress.com/2011/11/07/install-cblas-in-ubuntu/
+# Compiling & Installing OpenBLAS in Ubuntu 16.04
+#   https://aichamp.wordpress.com/2016/11/20/compiling-installing-openblas-in-ubuntu-16-04/
+
+
 TRAVIS_OS_NAME=$1
 echo "------------------------------------------ $0 ----------------------------------"
 DIST_LOCAL=~/local
