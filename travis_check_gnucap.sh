@@ -65,6 +65,7 @@ function inst_gsl(){
 }
 function inst_blas(){
   echo "----------------------------------------blas---Basic Linear Algebra Subprograms-----------------------"
+  #sudo apt-get install gcc-gfortran
   # sudo apt-get install gfortran # Package gfortran is not available, but is referred to by another package.
   # sudo apt-get install libblas-dev checkinstall
   # CBLAS is C interface to the BLAS library
@@ -112,6 +113,8 @@ if [[ $TRAVIS_OS_NAME == linux ]]; then
   # sudo apt-get install tree   # E: Unable to locate package tree
   echo "-------------------------username:$USER" # travis
   echo "-------------------------pwd:$(pwd)"     # /home/travis/build/${USER}/travis_test
+  sudo apt-get install gcc-gfortran || travis_terminate 1;
+
   mkdir sources
   pushd sources
   
