@@ -82,6 +82,9 @@ function inst_gnucsator(){
   export PATH=${DIST_LOCAL}/bin:$PATH; # make gnucap-conf available
   git clone -q https://github.com/Qucs/gnucsator.git
   pushd gnucsator
+  find DIST_LOCAL -name "libgsl*" -ls
+  find DIST_LOCAL -name "libblas*" -ls
+  find DIST_LOCAL -name "libgnucap*" -ls
   #git checkout develop
   # ------------- overwrite ----------------begin
   cp $START_DIR/configure .   # overwrite original    !!!!!!!!!!!!!!
