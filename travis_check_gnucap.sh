@@ -14,6 +14,17 @@ function showTree(){
   find $1 -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"
   find $1 -type f -ls
 }
+function inst_boost(){
+  echo "----------------------------------------boost-----------------------"
+  wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz
+  tar -xf boost_*.tar.gz
+  pushd boost_*
+  ./bootstrap.sh >> ${DIST_LOG}
+  ./b2           >> ${DIST_LOG}
+  if [ ! -d ${DIST_LOCAL}/include ]; then mkdir -p ${DIST_LOCAL}/include; fi
+  cp -r boost ${DIST_LOCAL}/include
+  popd #boost_*
+}
 function inst_gnucap(){
   echo "----------------------------------------gnucap--------------------------"
   git clone -q git://git.sv.gnu.org/gnucap.git >> ${DIST_LOG}
@@ -47,7 +58,7 @@ function inst_gsl(){
   ./configure --prefix=${DIST_LOCAL}  >> ${DIST_LOG}    
   make   >> ${DIST_LOG}
   #make check
-  make install
+  make install >> ${DIST_LOG}
   showTree ${DIST_LOCAL}
   popd # gsl
 }
@@ -59,8 +70,8 @@ function inst_blas(){
   # https://www.netlib.org/blas/blas-3.8.0.tgz ??
   git clone -q https://github.com/xianyi/OpenBLAS.git
   pushd OpenBLAS
-  make FC=gfortran #>> ${DIST_LOG}
-  make PREFIX=${DIST_LOCAL} install
+  make FC=gfortran >> ${DIST_LOG}
+  make PREFIX=${DIST_LOCAL} install >> ${DIST_LOG}
   showTree ${DIST_LOCAL}
   popd # OpenBLAS
 }
@@ -81,17 +92,6 @@ function inst_gnucsator(){
   make install || travis_terminate 2;
   showTree ${DIST_LOCAL}
   popd #gnucsator
-}
-function inst_boost(){
-  echo "----------------------------------------boost-----------------------"
-  wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz
-  tar -xf boost_*.tar.gz
-  pushd boost_*
-  ./bootstrap.sh
-  ./b2 
-  if [ ! -d ${DIST_LOCAL}/include ]; then mkdir -p ${DIST_LOCAL}/include; fi
-  cp -r boost ${DIST_LOCAL}/include
-  popd #boost_*
 }
 
 if [[ $TRAVIS_OS_NAME == linux ]]; then
