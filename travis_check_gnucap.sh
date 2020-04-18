@@ -11,8 +11,9 @@ function sysInfo(){
 }
 
 function showTree(){
+  echo "--------------------------showTree $1"
   find $1 -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"
-  find $1 -type f -ls
+  #find $1 -type f -ls
 }
 function inst_boost(){
   echo "----------------------------------------boost-----------------------"
@@ -87,7 +88,6 @@ function inst_gnucsator(){
   cp $START_DIR/Makefile.in . # overwrite original    !!!!!!!!!!!!!!
   # ------------- overwrite ----------------end
   ./configure --prefix=${DIST_LOCAL}    
-  ls -la
   make all || travis_terminate 1;
   make install || travis_terminate 2;
   showTree ${DIST_LOCAL}
