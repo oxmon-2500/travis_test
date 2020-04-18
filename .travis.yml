@@ -1,7 +1,8 @@
 # ----------------
 os: linux
-language: c++
+language: 
   - fortran
+  - c++
   
 before_install: 
   - echo "------------------------before_install"
@@ -10,7 +11,6 @@ install:
   - echo "------------------------install"
   
 script:
-  # script
   - echo "------------------------script"
   - if [[ $TRAVIS_OS_NAME == linux ]]; then 
       source travis_check_gnucap.sh $TRAVIS_OS_NAME ;
