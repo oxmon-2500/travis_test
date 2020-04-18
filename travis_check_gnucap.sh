@@ -113,7 +113,8 @@ if [[ $TRAVIS_OS_NAME == linux ]]; then
   # sudo apt-get install tree   # E: Unable to locate package tree
   echo "-------------------------username:$USER" # travis
   echo "-------------------------pwd:$(pwd)"     # /home/travis/build/${USER}/travis_test
-  sudo apt-get install gcc || travis_terminate 1; # for installing also gfortran
+  sudo apt-get install gcc # for installing also gfortran
+  gfortran --version || travis_terminate 1;
 
   mkdir sources
   pushd sources
